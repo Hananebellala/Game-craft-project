@@ -1,0 +1,123 @@
+[gd_scene load_steps=22 format=3 uid="uid://c8nn21slne2d"]
+
+[ext_resource type="Texture2D" uid="uid://dama7d4lda87r" path="res://sprites/scifi/anims/scifi_alien_idle_1.png" id="1_hiokb"]
+[ext_resource type="Script" path="res://Enemy.gd" id="1_hnt0s"]
+[ext_resource type="Texture2D" uid="uid://xnhvb4vf05sl" path="res://sprites/scifi/anims/scifi_alien_idle_2.png" id="2_3ifd8"]
+[ext_resource type="Texture2D" uid="uid://cvc68o4fnfg4f" path="res://sprites/scifi/anims/scifi_alien_bite_1.png" id="3_kpsgt"]
+[ext_resource type="Texture2D" uid="uid://m1adm4bq8rc2" path="res://sprites/scifi/anims/scifi_alien_bite_2.png" id="4_f26gi"]
+[ext_resource type="Texture2D" uid="uid://o26yvxhaxkra" path="res://sprites/scifi/anims/scifi_alien_bite_3.png" id="5_lm1m0"]
+[ext_resource type="Texture2D" uid="uid://46b72e3nei2l" path="res://sprites/scifi/anims/scifi_alien_bite_4.png" id="6_0uix7"]
+[ext_resource type="Texture2D" uid="uid://bmx4cq370k6vl" path="res://sprites/scifi/anims/scifi_alien_bite_5.png" id="7_aqixr"]
+[ext_resource type="Texture2D" uid="uid://ckiddrvu14g0o" path="res://sprites/scifi/anims/scifi_alien_die_1.png" id="8_d3c17"]
+[ext_resource type="Texture2D" uid="uid://udv2wapb5lry" path="res://sprites/scifi/anims/scifi_alien_die_2.png" id="9_2mcne"]
+[ext_resource type="Texture2D" uid="uid://bjfhv6m253rit" path="res://sprites/scifi/anims/scifi_alien_die_3.png" id="10_v6hju"]
+[ext_resource type="Texture2D" uid="uid://27d37cgvp224" path="res://sprites/scifi/anims/scifi_alien_die_4.png" id="11_cqqfy"]
+[ext_resource type="Texture2D" uid="uid://b6r7okpt12uxc" path="res://sprites/scifi/anims/scifi_alien_die_5.png" id="12_8kham"]
+[ext_resource type="Texture2D" uid="uid://b4nvgex1l7jgo" path="res://sprites/scifi/anims/scifi_alien_run_1.png" id="13_rn1gu"]
+[ext_resource type="Texture2D" uid="uid://dd4r4s1prm3uo" path="res://sprites/scifi/anims/scifi_alien_run_2.png" id="14_g6nqx"]
+[ext_resource type="Texture2D" uid="uid://qcf0bjh2se2t" path="res://sprites/scifi/anims/scifi_alien_run_3.png" id="15_eqg56"]
+[ext_resource type="Texture2D" uid="uid://dwy22pf1aa6t8" path="res://sprites/scifi/anims/scifi_alien_run_4.png" id="16_f7xsl"]
+[ext_resource type="Texture2D" uid="uid://di5io7tsmdnkn" path="res://sprites/scifi/anims/scifi_alien_run_5.png" id="17_utauw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6q5ea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hiokb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_3ifd8")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_kpsgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f26gi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lm1m0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0uix7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_aqixr")
+}],
+"loop": true,
+"name": &"bite",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_d3c17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2mcne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v6hju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_cqqfy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8kham")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_rn1gu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_g6nqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_eqg56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f7xsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_utauw")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_phctf"]
+radius = 150.233
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8dxrb"]
+radius = 14.0
+height = 28.0
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_hnt0s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6q5ea")
+animation = &"Idle"
+offset = Vector2(0, -30)
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CircleShape2D_phctf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -27)
+shape = SubResource("CapsuleShape2D_8dxrb")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dckefw0x3nyvc"]
+
+[ext_resource type="Texture2D" uid="uid://cp7plcubmwrmp" path="res://sprites/scifi/anims/scifi_blasterimpact_1.png" id="1_nw5ux"]
+[ext_resource type="Script" path="res://bullet.gd" id="2_q2tjo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nt22i"]
+radius = 4.40429
+height = 11.2125
+
+[node name="bullet" type="Sprite2D"]
+position = Vector2(-2, -1)
+scale = Vector2(4.31398, 3.21071)
+texture = ExtResource("1_nw5ux")
+script = ExtResource("2_q2tjo")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(5.0997, 0.311457)
+shape = SubResource("CapsuleShape2D_nt22i")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
