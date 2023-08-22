@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk3ufi2jqb880"]
+
+[ext_resource type="Texture2D" uid="uid://bvhwid85fifjb" path="res://sprites/scifi/anims/scifi_blasterfire_1.png" id="1_kjoj5"]
+[ext_resource type="Script" path="res://scenes/sprite_2d.gd" id="2_wbb7s"]
+
+[node name="Sprite2D" type="Sprite2D"]
+position = Vector2(0, -5.96046e-08)
+scale = Vector2(0.982143, 1.05)
+texture = ExtResource("1_kjoj5")
+script = ExtResource("2_wbb7s")

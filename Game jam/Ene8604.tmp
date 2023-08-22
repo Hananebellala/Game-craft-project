@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bxghl6fn7v5k6"]
+[gd_scene load_steps=29 format=3 uid="uid://c8nn21slne2d"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_hnt0s"]
 [ext_resource type="Texture2D" uid="uid://dama7d4lda87r" path="res://sprites/scifi/anims/scifi_alien_idle_1.png" id="1_hunvd"]
@@ -97,35 +97,8 @@ animations = [{
 radius = 150.233
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8dxrb"]
-radius = 19.0
-height = 50.0
-
-[sub_resource type="Animation" id="Animation_dtehn"]
-resource_name = "Die"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"die"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
+radius = 14.0
+height = 28.0
 
 [sub_resource type="Animation" id="Animation_3fabc"]
 resource_name = "Idle"
@@ -156,21 +129,6 @@ tracks/1/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_jdxuk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
 [sub_resource type="Animation" id="Animation_rcb6p"]
 resource_name = "Run"
 loop_mode = 1
@@ -185,6 +143,33 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_dtehn"]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"die"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -226,6 +211,21 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_jdxuk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ryurg"]
 _data = {
 "Die": SubResource("Animation_dtehn"),
@@ -236,7 +236,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4mcaf"]
-radius = 304.015
+radius = 308.24
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_hnt0s")
@@ -270,10 +270,7 @@ libraries = {
 position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_4mcaf")
 
-[node name="take_damage_cooldown" type="Timer" parent="."]
-
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
 [connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
-[connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]

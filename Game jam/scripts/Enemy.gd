@@ -4,15 +4,12 @@ extends Node2D
 
 
 var speed : float = 150.0
-
 var player_chase = false
 var player = null
 var run = false
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var health = 50
 var player_inattack_zone = false
-var can_take_damage=true
 
 
 func _physics_process(delta):
@@ -55,23 +52,8 @@ func _on_enemy_hitbox_body_exited(body):
 	if body.has_method("player"):
 		player_inattack_zone = false
 func deal_with_damage():
-	if player_inattack_zone and global.player_current_attack == true:
-		if can_take_damage ==true:
-			$take_damage_cooldown.start()
-			can_take_damage=false
-			health=0
-			print("dead")
-			if health <=0:
-				self.queue_free()
-			
-		
-		
-		
-
-
-
-	
-
-
-func _on_take_damage_cooldown_timeout():
-	can_take_damage=true
+	if player_inattack_zone and globaL.player_current_attack == true:
+		health=0
+		print("dead")
+		if health <=0:
+			self.queue_free()

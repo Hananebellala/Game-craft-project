@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var bullet = preload("res://bullet.tscn")
+@onready var bullet = preload("res://scenes/sprite_2d.tscn")
 @export var speed : float = 300.0
 @export var jump_velocity : float = -200.0
 @export var double_jump_velocity : float =-200.0
@@ -11,13 +11,29 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped : bool = false
 
 var b
+var bullet_set="right"
+
+var enemy_attack = false
+var enemy_attack_cooldown =true
+var health = 100
+var player_alive = true
+var player_current_attack = false
+var attack_ip = false
 
 @onready var anim= get_node("AnimationPlayer")
 
 func _physics_process(delta):
 	
-	shoot()
+	
 	move(delta)
+	enemy_attacking()
+	shoot()
+	if health<=0:
+		player_alive=false
+		health = 0
+		
+		
+	
 	
 	move_and_slide()
 func move(delta):
@@ -49,23 +65,51 @@ func move(delta):
 		
 		velocity.x = direction * speed
 		anim.play("run")
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
 		anim.play("idle")
 
 func shoot():
+	var direction = Input.get_axis("left", "right")
+	
 	if Input.is_action_just_pressed("shoot"):
+		if direction == -1:
+			bullet_set="left"
+		attack_ip=true
+		global.player_current_attack = true
 		b = bullet.instantiate( )
 		get_parent().add_child(b)
 		b.global_position = $Marker2D.global_position
-	
+		$deal_attack_timer.start()
+		
+func player():
+	pass
+
+func _on_player_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_attack = true
 		
 
-		
-		
-		
-		
-		
+
+func _on_player_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		enemy_attack = false
+
+func enemy_attacking():
+	if enemy_attack and enemy_attack_cooldown == true:
+		health = health-20
+		enemy_attack_cooldown =false
+		$attack_cooldown.start()
+		print(health)
 
 
+func _on_attack_cooldown_timeout():
+	enemy_attack_cooldown = true
+
+
+func _on_deal_attack_timer_timeout():
+	$deal_attack_timer.stop()
+	global.player_current_attack=false
+	attack_ip=false

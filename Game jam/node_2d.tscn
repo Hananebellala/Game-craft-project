@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjaxaklmyuf8e"]
+[gd_scene load_steps=24 format=3 uid="uid://db65d7pqv2itu"]
 
 [ext_resource type="Texture2D" uid="uid://c5i376c8idgv3" path="res://sprites/scifi/scifi_1a1a.png" id="1_qnsbj"]
 [ext_resource type="Texture2D" uid="uid://clsi6u70oy4q4" path="res://sprites/scifi/scifi_1a2a.png" id="2_rmrnt"]
@@ -11,9 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c2y2cf6lik70p" path="res://sprites/scifi/scifi_5a2b.png" id="9_8u7e4"]
 [ext_resource type="Texture2D" uid="uid://upt7ue6ju7as" path="res://sprites/scifi/scifi_4b2b.png" id="10_j58xa"]
 [ext_resource type="PackedScene" uid="uid://c8c7mdvcviw75" path="res://character/player.tscn" id="11_0c13a"]
-[ext_resource type="Script" path="res://character/player.gd" id="12_ufc1k"]
-[ext_resource type="PackedScene" uid="uid://c8nn21slne2d" path="res://enemy.tscn" id="13_jeur6"]
-[ext_resource type="PackedScene" uid="uid://c8nn21slne2d" path="res://Enemy.tscn" id="14_jdgxx"]
+[ext_resource type="PackedScene" uid="uid://bxghl6fn7v5k6" path="res://Enemy.tscn" id="14_jdgxx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o784v"]
 texture = ExtResource("1_qnsbj")
@@ -609,7 +607,6 @@ layer_0/tile_data = PackedInt32Array(-65539, 3, 0, -3, 3, 1, 65533, 3, 2, 131069
 
 [node name="Player" parent="." instance=ExtResource("11_0c13a")]
 position = Vector2(76, 330)
-script = ExtResource("12_ufc1k")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -621,7 +618,7 @@ position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
-[node name="Node2D" parent="." instance=ExtResource("13_jeur6")]
+[node name="Node2D" parent="." instance=ExtResource("14_jdgxx")]
 visible = false
 position = Vector2(695, 408)
 
